@@ -3,7 +3,7 @@ import difflib
 import os
 
 # Set your OpenAI API key
-openai.api_key = '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'
+#openai.api_key = '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'
 
 
 def transcribe_audio(audio_file_path):

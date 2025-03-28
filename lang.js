@@ -3,7 +3,7 @@ import fs from 'fs';
 import difflib from 'difflib';
 
 // Set your OpenAI API key
-const openai = new OpenAI({ apiKey: 'your-api-key-here' });
+const openai = new OpenAI({ apiKey: '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' });
 
 async function transcribeAudio(audioFilePath) {
     const audioFile = fs.createReadStream(audioFilePath);

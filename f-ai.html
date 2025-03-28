@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Correction de Prononciation AI</title>
-    <script defer src="script.js"></script>
+    <script defer src="ai.js"></script>
 </head>
 <body>
     <h1>Correction de Prononciation AI</h1>
@@ -20,6 +20,7 @@
     <button onclick="analyserPrononciation()">Analyser</button>
     
     <h2>Ou enregistrez votre voix :</h2>
+    
     <button id="recordButton">🎤 Enregistrer</button>
     <button id="stopButton" disabled>⏹️ Arrêter</button>
     
@@ -33,6 +34,7 @@
         let mediaRecorder;
         let audioChunks = [];
         
+        // Handle record button click
         document.getElementById("recordButton").addEventListener("click", async () => {
             let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
@@ -41,11 +43,23 @@
                 audioChunks.push(event.data);
             };
             
-            mediaRecorder.onstop = () => {
+            mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                 const audioUrl = URL.createObjectURL(audioBlob);
                 console.log("Audio enregistré :", audioUrl);
-                // Envoyer l'audio pour transcription
+
+                // Upload audio to the server for transcription (you need to implement this part)
+                const formData = new FormData();
+                formData.append("audio", audioBlob, "recording.wav");
+
+                const response = await fetch("/transcribe", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+                document.getElementById("transcription").textContent = "Transcription : " + data.transcription;
+                document.getElementById("correction").textContent = "Correction : " + data.feedback;
             };
             
             mediaRecorder.start();
@@ -53,11 +67,38 @@
             document.getElementById("stopButton").disabled = false;
         });
         
+        // Handle stop button click
         document.getElementById("stopButton").addEventListener("click", () => {
             mediaRecorder.stop();
             document.getElementById("recordButton").disabled = false;
             document.getElementById("stopButton").disabled = true;
         });
+
+        // Handle file upload
+        document.getElementById("audioFile").addEventListener("change", async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                // Create FormData and send to server for transcription
+                const formData = new FormData();
+                formData.append("audio", file);
+
+                const response = await fetch("/transcribe", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+                document.getElementById("transcription").textContent = "Transcription : " + data.transcription;
+                document.getElementById("correction").textContent = "Correction : " + data.feedback;
+            }
+        });
+
+        // Function to start analysis (if needed for additional processing)
+        function analyserPrononciation() {
+            const expectedText = document.getElementById("expectedText").value;
+            console.log("Texte attendu pour analyse:", expectedText);
+            // Implement any additional logic for analyzing pronunciation or comparison if needed.
+        }
     </script>
 </body>
 </html>
