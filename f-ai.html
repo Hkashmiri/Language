@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction de Prononciation AI</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Correction de Prononciation AI</h1>
+    
+    <label for="audioFile">Téléchargez un fichier audio :</label>
+    <input type="file" id="audioFile" accept="audio/*">
+    <br>
+    
+    <label for="expectedText">Texte attendu :</label>
+    <input type="text" id="expectedText" placeholder="Entrez le texte attendu">
+    <br>
+    
+    <button onclick="analyserPrononciation()">Analyser</button>
+    
+    <h2>Ou enregistrez votre voix :</h2>
+    <button id="recordButton">🎤 Enregistrer</button>
+    <button id="stopButton" disabled>⏹️ Arrêter</button>
+    
+    <h2>Transcription :</h2>
+    <p id="transcription"></p>
+    
+    <h2>Correction :</h2>
+    <p id="correction"></p>
+    
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        
+        document.getElementById("recordButton").addEventListener("click", async () => {
+            let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+            
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                console.log("Audio enregistré :", audioUrl);
+                // Envoyer l'audio pour transcription
+            };
+            
+            mediaRecorder.start();
+            document.getElementById("recordButton").disabled = true;
+            document.getElementById("stopButton").disabled = false;
+        });
+        
+        document.getElementById("stopButton").addEventListener("click", () => {
+            mediaRecorder.stop();
+            document.getElementById("recordButton").disabled = false;
+            document.getElementById("stopButton").disabled = true;
+        });
+    </script>
+</body>
+</html>

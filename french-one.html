@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Labyrinth</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .playing {
+            background-color: rgb(18, 154, 172);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Language Labyrinth Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lang.html">Languages</a></li>
+                <li><a href="course.html">Courses</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="sign.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to French</h1>
+        <p>French Lesson One Audio Files</p>
+        <!-- Generate 29 Audio Buttons and Elements -->
+        <div class="audio-buttons">
+            <script>
+                for (let i = 1; i <= 29; i++) {
+                    document.write(`
+                        <button id="btn${i}" onclick="toggleSound('sound${i}', this)">Play/Pause Sound ${i}</button>
+                        <audio id="sound${i}" src="audio/langfiles/${i < 10 ? '0' : ''}${i} Track ${i}.mp3"></audio>
+                    `);
+                }
+            </script>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Language Labyrinth. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleSound(audioId, button) {
+            const audioElement = document.getElementById(audioId);
+
+            // Pause any currently playing audio
+            document.querySelectorAll("audio").forEach(audio => {
+                if (audio !== audioElement) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+            });
+
+            document.querySelectorAll("button").forEach(btn => btn.classList.remove("playing"));
+
+            if (audioElement.paused) {
+                audioElement.play();
+                button.classList.add("playing");
+            } else {
+                audioElement.pause();
+                button.classList.remove("playing");
+            }
+        }
+    </script>
+</body>
+</html>

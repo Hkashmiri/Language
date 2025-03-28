@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | Language Labyrinth</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Language Labyrinth Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lang.html">Languages</a></li>
+                <li><a href="course.html">Courses</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="sign.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contact-container">
+        <h2>Contact Me</h2>
+        <p>Have questions or feedback? Send me a message below!</p>
+        
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+            <p id="form-message"></p>
+        </form>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdv1-vbGrQoSbK5f0ATIhrjGUggfrUwN8",
+            authDomain: "language-labyrinth.firebaseapp.com",
+            databaseURL: "https://language-labyrinth-default-rtdb.firebaseio.com/",  // Realtime Database Link
+            projectId: "language-labyrinth",
+            storageBucket: "language-labyrinth.appspot.com",
+            messagingSenderId: "309364119548",
+            appId: "1:309364119548:web:e6b3ad6f18001e91228479",
+            measurementId: "G-CNF2B4YPQX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app); // Initialize Realtime Database
+
+        // Handle Form Submission
+        document.getElementById("contact-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            const formMessage = document.getElementById("form-message");
+
+            if (name && email && message) {
+                try {
+                    // Save message to Realtime Database
+                    await push(ref(database, "messages"), {
+                        name: name,
+                        email: email,
+                        message: message,
+                        timestamp: new Date().toISOString()
+                    });
+
+                    formMessage.style.color = "green";
+                    formMessage.textContent = "Message sent successfully! 😊";
+                    this.reset();
+                } catch (error) {
+                    formMessage.style.color = "red";
+                    formMessage.textContent = "Error sending message. Try again.";
+                    console.error("Error adding document: ", error);
+                }
+            } else {
+                formMessage.style.color = "red";
+                formMessage.textContent = "Please fill out all fields!";
+            }
+        });
+    </script>
+</body>
+</html>
+

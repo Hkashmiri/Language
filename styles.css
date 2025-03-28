@@ -1,0 +1,301 @@
+/* General Styles */
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+}
+
+header .logo img {
+    width: 150px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    height: 80vh;
+    background: url('images/hero-bg.jpg') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+/* Languages Section */
+.languages {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.languages h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.language-card {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.language-card img {
+    width: 100px;
+    height: 100px;
+}
+
+.language-card h3 {
+    margin-top: 10px;
+}
+
+.lesson-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Center buttons */
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Footer */
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Authentication Page */
+.auth-container {
+    text-align: center;
+    padding: 50px;
+}
+
+.auth-form input {
+    display: block;
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.auth-form button {
+    display: block;
+    width: 320px;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.auth-form button:hover {
+    background-color: #c0392b;
+}
+
+#auth-message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+/* Contact Page Styling */
+.contact-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.contact-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-container p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.contact-container input, 
+.contact-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.contact-container textarea {
+    resize: none;
+}
+
+.contact-container button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.contact-container button:hover {
+    background: #0056b3;
+}
+
+#form-message {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Sign-in / Sign-up Page Styling */
+.auth-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.auth-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.auth-container button:hover {
+    background: #0056b3;
+}
+
+/* Message Display */
+#auth-message {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .auth-container {
+        max-width: 90%;
+    }
+}
+
+button {
+    background-color: #fa6eff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #981ec1;
+}
